@@ -6,7 +6,7 @@
 * Write a checkstyle / lint
 * I chose NOT to use lombok for ease of running
 * I did use the gradle wrapper for ease of use (i.e. ./gradlew)
-* I would create custom login, error and 404 pages
+* I would create        custom login, error and 404 pages
 * I am would have currently used more of an Event Sourced methodology but felt this was my best bet given the time I lost due to computer issues as well as other personal issues
 
 > Username: user

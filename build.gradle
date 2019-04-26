@@ -3,7 +3,7 @@ buildscript {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
-      mavenCentral()
+        mavenCentral()
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE')
@@ -21,7 +21,7 @@ group = 'parallon'
 
 bootJar {
     baseName = 'parallon'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 // tag::task[]
@@ -46,32 +46,19 @@ targetCompatibility = 1.8
 
 dependencies {
 
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-security")
-    compile("com.h2database:h2")
+    compile(
+            ["org.springframework.boot:spring-boot-starter-data-jpa"],
+            ["org.springframework.boot:spring-boot-starter-security"],
+            ["com.h2database:h2"],
+            ["org.springframework.boot:spring-boot-starter-web"],
+            ["com.google.guava:guava:21.0"],
+            ["io.springfox:springfox-swagger2:2.7.0"],
+            ["io.springfox:springfox-swagger-ui:2.7.0"]
+    )
 
-    
-    compile("org.springframework.boot:spring-boot-starter-web")
-
-    //compile('org.springframework.boot:spring-boot-devtools')
-    //compile('org.springframework.boot:spring-boot-starter-data-rest')
-    //compile('org.springframework.boot:spring-boot-starter-data-jdbc')
-
-    //testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
-
-
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
-    //compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    //compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.0.Final'
-    //compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.0.Final'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
-    //compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.1.4.RELEASE'
-
-    //compile("com.h2database:h2")
-
-    testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    //testCompile("org.springframework.boot:spring-security-test")
+    testCompile(
+            ["junit:junit"],
+            ["org.springframework.boot:spring-boot-starter-test"]
+    )
 }
 

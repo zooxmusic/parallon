@@ -3,6 +3,7 @@ package com.parallon.coding.challenge.controller;
 
 import com.parallon.coding.challenge.model.Customer;
 import com.parallon.coding.challenge.repository.CustomerRepository;
+import com.parallon.coding.challenge.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class    CustomerController {
 
     private final CustomerRepository customerRepository;
+    private final AccountService accountService;
 
     @Autowired
-    public CustomerController(final CustomerRepository customerRepository) {
+    public CustomerController(final AccountService accountService, final CustomerRepository customerRepository) {
+        this.accountService = accountService;
         this.customerRepository = customerRepository;
     }
 
-    @Secured("ROLE_USER")
     @GetMapping(value = "/customers")
     public Iterable<Customer> getAllCustomers() {
-        return this.customerRepository.findAll();
+        return accountService.getAllCustomers();
     }
 
     @Secured("ROLE_USER")

@@ -11,11 +11,8 @@ public class Account {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
-    private Customer customer;
-
     private String name;
-    private String description;
+    private double balance;
 
     public Long getId() {
         return id;
@@ -23,14 +20,6 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getName() {
@@ -41,11 +30,19 @@ public class Account {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void deposit(double amount) {
+        setBalance(this.balance + amount);
+    }
+
+    public void withdraw(double amount) {
+        setBalance(this.balance - amount);
     }
 }

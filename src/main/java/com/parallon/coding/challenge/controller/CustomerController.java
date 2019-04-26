@@ -1,39 +1,53 @@
 package com.parallon.coding.challenge.controller;
 
-import com.parallon.coding.challenge.model.Customer;
-import com.parallon.coding.challenge.service.CustomerFacadeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.parallon.coding.challenge.model.Customer;
+import com.parallon.coding.challenge.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
-public class CustomerController {
+@RequestMapping(value = "/api")
+public class    CustomerController {
 
-    private final CustomerFacadeService customerFacadeService;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerController(final CustomerFacadeService customerFacadeService) {
-        this.customerFacadeService = customerFacadeService;
+    public CustomerController(final CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Docker World";
+    @Secured("ROLE_USER")
+    @GetMapping(value = "/customers")
+    public Iterable<Customer> getAllCustomers() {
+        return this.customerRepository.findAll();
     }
 
-    @RequestMapping(value = "/customers", method = RequestMethod.GET)
-    public List<Customer> getAllCustomers() {
-        List<Customer> productsList = new ArrayList<>();
+    @Secured("ROLE_USER")
+    @GetMapping(value = "/customer/{id}")
+    public Customer getCustomer(@PathVariable("id") Long customerId) {
+        return this.customerRepository.findById(customerId).get();
+    }
 
-        return productsList;
+    @Secured("ROLE_USER")
+    @PostMapping("/customer")
+    public Customer addCustomer(@RequestBody Customer customer) {
+        return this.customerRepository.save(customer);
     }
-    @RequestMapping(value = "/customer", method = RequestMethod.GET)
-    public String getCustomer() {
-        return "Product is saved successfully";
+
+    @Secured("ROLE_USER")
+    @PutMapping("/customer")
+    public Customer updateCustomer(@RequestBody Customer updatedCustomer) {
+        return this.customerRepository.save(updatedCustomer);
     }
+
+    @Secured("ROLE_USER")
+    @DeleteMapping("/customer")
+    public void deleteCustomer(@RequestBody Customer deleteCustomer) {
+        this.customerRepository.delete(deleteCustomer);
+    }
+
 
 }
